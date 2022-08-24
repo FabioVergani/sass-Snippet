@@ -1,0 +1,9 @@
+@function repeat($count, $string: '\0020') {
+	$text: '';
+	@if ($count > 0) {
+			@for $i from 1 through $count {
+					$text: $text + $string;
+			}
+	}
+	@return $text;
+}
