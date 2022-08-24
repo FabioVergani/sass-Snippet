@@ -1,0 +1,54 @@
+$variables: (
+    red: (
+        600: #c6002b,
+        sub1: (
+            500: #cd212e,
+            sub2: (
+                400: #e22c3a,
+                300: #f4747c,
+                200: #f79096,
+                100: #f4adb1
+            )
+        )
+    ),
+    blue: (
+        600: #0055b7,
+        500: #509da7,
+        400: #30bac6,
+        300: #68c8d5,
+        200: #84dae5,
+        100: #a3e2eb
+    ),
+    grey: (
+        600: #27292d,
+        grey: (
+            600: #27292d,
+            grey: (
+                500: #3f4447,
+                grey: (
+                    400: #717277,
+                    300: #a9afb2,
+                    200: #e6eaed,
+                    100: #f6f8f9
+                )
+            )
+        )
+    )
+);
+
+//noinspection CssInvalidAtRule
+@⮑ {
+    @mixin traverse($map, $depth: 0) {
+        @each $key, $value in $map {
+            $indent: repeat($depth);
+            @if type-of($value) == 'map' {
+                @⮑ #{$key} {
+                    @include traverse($value, 1 + $depth);
+                }
+            } @else {
+                #{'--' + $key}: $value;
+            }
+        }
+    }
+    @include traverse($variables);
+}
